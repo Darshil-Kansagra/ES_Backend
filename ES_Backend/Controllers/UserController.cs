@@ -36,9 +36,9 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region Insert
+        #region PostData
         [HttpPost]
-        public IActionResult Insert([FromBody] UserModel user)
+        public IActionResult PostData([FromBody] UserModel user)
         {
             var data = _userData.Insert(user);
             if(data == false)
@@ -52,7 +52,12 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region Update
+        #region UpdateData
+        [HttpPut("{id}")]
+        public IActionResult UpdateData([FromBody]UserModel user,int id)
+        {
+            return Ok();
+        }
         #endregion
     }
 }

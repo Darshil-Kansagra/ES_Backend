@@ -77,6 +77,68 @@ namespace ES_Backend.Data
             }
             return false;
         }
+        #endregion;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+        #region Update
+        public bool Update(UserModel model, int id)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection())
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_User_Update";
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    cmd.Parameters.AddWithValue("@UserName", model.UserName);
+                    cmd.Parameters.AddWithValue("@Password", model.Password);
+                    cmd.Parameters.AddWithValue("@Role", model.Role);
+                    cmd.Parameters.AddWithValue("@IsActive", model.IsActive);
+                    int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return false;
+        }
+        #endregion
+
+        #region SoftDelete
+        public bool SoftDelete(int id)
+        {
+            try
+            {
+                using(SqlConnection con = new SqlConnection())
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_User_SelectById";
+                    cmd.Parameters.AddWithValue("@UserId",id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        UserModel model = new UserModel
+                        {
+                            UserName = reader["UserName"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Role = reader["Role"].ToString(),
+                            IsActive = false
+                        };
+                        return Update(model, id);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return false;
+        }
         #endregion
     }
 }
