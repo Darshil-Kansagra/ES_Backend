@@ -77,7 +77,7 @@ namespace ES_Backend.Data
             }
             return false;
         }
-        #endregion;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        #endregion
 
         #region Update
         public bool Update(UserModel model, int id)
