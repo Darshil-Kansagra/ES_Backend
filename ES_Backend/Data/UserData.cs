@@ -84,7 +84,7 @@ namespace ES_Backend.Data
         {
             try
             {
-                using (SqlConnection con = new SqlConnection())
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
@@ -112,7 +112,7 @@ namespace ES_Backend.Data
         {
             try
             {
-                using(SqlConnection con = new SqlConnection())
+                using(SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
@@ -129,7 +129,8 @@ namespace ES_Backend.Data
                             Role = reader["Role"].ToString(),
                             IsActive = false
                         };
-                        return Update(model, id);
+                        bool rows = Update(model,id);
+                        return rows;
                     }
                 }
             }

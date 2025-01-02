@@ -19,10 +19,10 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region GetAll
+        #region GetAllUser
         [HttpGet]
-        [Route("GetAll")]
-        public IActionResult GetAll()
+        [Route("GetAllUser")]
+        public IActionResult GetAllUser()
         {
             var data = _userData.SelectAll();
             if (data == null)
@@ -36,9 +36,10 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region PostData
+        #region PostUser
         [HttpPost]
-        public IActionResult PostData([FromBody] UserModel user)
+        [Route("PostUser")]
+        public IActionResult PostUser([FromBody] UserModel user)
         {
             var data = _userData.Insert(user);
             if(data == false)
@@ -47,16 +48,40 @@ namespace ES_Backend.Controllers
             }
             else
             {
-                return Ok();
+                return Ok(new { message = "Data Inserted Successfully" });
             }
         }
         #endregion
 
-        #region UpdateData
-        [HttpPut("{id}")]
-        public IActionResult UpdateData([FromBody]UserModel user,int id)
+        #region PutUser
+        [HttpPut("UpdateUser/{id}")]
+        public IActionResult PutUser([FromBody]UserModel user,int id)
         {
-            return Ok();
+            var data = _userData.Update(user,id);
+            if(data == false)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(new { message = "Data Updated Successfully" });
+            }
+        }
+        #endregion
+
+        #region SoftDelete
+        [HttpPatch("SoftDelete/{id}")]
+        public IActionResult SoftDelete(int id)
+        {
+            var data = _userData.SoftDelete(id);
+            if(data == false)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(new { message = "Data Deleted Successfully" });
+            }
         }
         #endregion
     }
