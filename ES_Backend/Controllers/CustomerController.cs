@@ -4,7 +4,7 @@ using ES_Backend.Data;
 using ES_Backend.Models;
 namespace ES_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("ES/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
