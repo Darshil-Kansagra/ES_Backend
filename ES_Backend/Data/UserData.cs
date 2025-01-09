@@ -43,7 +43,8 @@ namespace ES_Backend.Data
                         });
                     }
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -52,7 +53,6 @@ namespace ES_Backend.Data
         #endregion
 
         #region Insert
-        [HttpPost]
         public bool Insert(UserModel user)
         {
             try
@@ -112,13 +112,13 @@ namespace ES_Backend.Data
         {
             try
             {
-                using(SqlConnection con = new SqlConnection(_connectionString))
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "PR_User_SelectById";
-                    cmd.Parameters.AddWithValue("@UserId",id);
+                    cmd.Parameters.AddWithValue("@UserId", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
@@ -129,16 +129,55 @@ namespace ES_Backend.Data
                             Role = reader["Role"].ToString(),
                             IsActive = false
                         };
-                        bool rows = Update(model,id);
+                        bool rows = Update(model, id);
                         return rows;
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
             return false;
+        }
+        #endregion
+
+        #region Login
+        public UserModel login(UserModel model)
+        {
+            UserModel users = new UserModel();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_Login";
+                    cmd.Parameters.AddWithValue("@UserName",model.UserName);
+                    cmd.Parameters.AddWithValue("@Password", model.Password);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        users = new UserModel
+                        {
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Role = reader["Role"].ToString(),
+                            IsActive = Convert.ToBoolean(reader["IsActive"]),
+                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                        };
+                        return users;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return users;
         }
         #endregion
     }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ES_Backend.Models;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.Data.SqlClient;
 
 namespace ES_Backend.Controllers
 {
@@ -20,6 +22,7 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region GetAllUser
+
         [HttpGet]
         [Route("GetAllUser")]
         public IActionResult GetAllUser()
@@ -37,6 +40,7 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region PostUser
+
         [HttpPost]
         [Route("PostUser")]
         public IActionResult PostUser([FromBody] UserModel user)
@@ -54,6 +58,7 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region PutUser
+
         [HttpPut("UpdateUser/{id}")]
         public IActionResult PutUser([FromBody]UserModel user,int id)
         {
@@ -70,6 +75,7 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region SoftDelete
+
         [HttpPatch("SoftDelete/{id}")]
         public IActionResult SoftDelete(int id)
         {
@@ -81,6 +87,23 @@ namespace ES_Backend.Controllers
             else
             {
                 return Ok(new { message = "Data Deleted Successfully" });
+            }
+        }
+        #endregion
+
+        #region Login
+        [HttpPost]
+        [Route("Login")]
+        public IActionResult login([FromBody] UserModel user)
+        {
+            var data = _userData.login(user);
+            if (data.UserId == null)
+            {
+                return Ok(new { message = "UserName or Password is incorrect" });
+            }
+            else
+            {
+                return Ok(data);
             }
         }
         #endregion
