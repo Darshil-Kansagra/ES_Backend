@@ -20,6 +20,7 @@ namespace ES_Backend.Controllers
 
         #region GetAllOrder
         [HttpGet]
+        [Route("GetAllOrder")]
         public IActionResult GetAllOrder()
         {
             var data = _orderData.SelectAll();

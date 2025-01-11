@@ -7,22 +7,23 @@ namespace ES_Backend.Controllers
 {
     [Route("ES/[controller]")]
     [ApiController]
-    public class OrderDetailsController : ControllerBase
+    public class BillController : ControllerBase
     {
-        private readonly OrderDetailsData _orderDetailsData;
+        private readonly BillData _billData;
+
         #region configuration
-        public OrderDetailsController(IConfiguration configuration)
+        public BillController(IConfiguration configuration)
         {
-            _orderDetailsData = new OrderDetailsData(configuration);
+            _billData = new BillData(configuration);
         }
         #endregion
 
-        #region GetAllOrderDetails
+        #region GetAllBill
         [HttpGet]
-        [Route("GetAllOrderDetails")]
-        public IActionResult GetAllOrderDetails()
+        [Route("GetAllBill")]
+        public IActionResult GetAllBill()
         {
-            var data = _orderDetailsData.SelectAll();
+            var data = _billData.SelectAll();
             if (data == null)
             {
                 return NotFound();
@@ -34,13 +35,13 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region PostOrderDetails
+        #region PostBill
         [HttpPost]
-        [Route("PostOrderDetails")]
-        public IActionResult PostOrder([FromBody] OrderDetailsModel model)
+        [Route("PostBill")]
+        public IActionResult PostBill([FromBody] BillModel model)
         {
-            var data = _orderDetailsData.Insert(model);
-            if (data == false)
+            var data = _billData.Insert(model);
+            if(data == false)
             {
                 return NotFound();
             }
@@ -51,11 +52,11 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region DeleteOrderDetails
-        [HttpDelete("DeleteOrderDetails/{id}")]
-        public IActionResult DeleteOrderDetails(int id)
+        #region DeleteBill
+        [HttpDelete("DeleteBill/{id}")]
+        public IActionResult DeleteBill(int id)
         {
-            var data = _orderDetailsData.Delete(id);
+            var data = _billData.Delete(id);
             if (data == false)
             {
                 return NotFound();

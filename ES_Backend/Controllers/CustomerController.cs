@@ -19,6 +19,7 @@ namespace ES_Backend.Controllers
 
         #region GetAllCustomer
         [HttpGet]
+        [Route("GetAllCustomer")]
         public IActionResult GetAllCustomer()
         {
             return Ok();
