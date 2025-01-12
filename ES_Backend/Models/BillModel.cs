@@ -2,7 +2,7 @@
 {
     public class BillModel
     {
-        public int BillId { get; set; }
+        public int? BillId { get; set; }
         public int BillNumber { get; set; }
         public DateTime BillDate { get; set; }
         public double Amount { get; set; }

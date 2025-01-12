@@ -22,7 +22,15 @@ namespace ES_Backend.Controllers
         [Route("GetAllCustomer")]
         public IActionResult GetAllCustomer()
         {
-            return Ok();
+            var data = _customerData.SelectAll();
+            if(data == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(data);
+            }
         }
         #endregion
 
@@ -31,7 +39,7 @@ namespace ES_Backend.Controllers
         public IActionResult GetById(int id)
         {
             var data = _customerData.SelectById(id);
-            if (data == null)
+            if (data.CustomerId == null)
             {
                 return NotFound();
             }

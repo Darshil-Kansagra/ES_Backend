@@ -26,6 +26,7 @@ namespace ES_Backend.Data
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_Customer_SelectAll";
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -34,12 +35,12 @@ namespace ES_Backend.Data
                             CustomerId = Convert.ToInt32(reader["CustomerId"]),
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
-                            MobileNo = Convert.ToInt32(reader["MobileNo"]),
+                            MobileNo = reader["MobileNo"].ToString(),
                             Email = reader["Email"].ToString(),
                             Address = reader["Address"].ToString(),
-                            UserId = Convert.ToInt32("UserId"),
-                            CreatedDate = Convert.ToDateTime("CreatedDate"),
-                            UpdatedDate = Convert.ToDateTime("UpdatedDate")
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
                         });
                     }
                 }
@@ -73,12 +74,12 @@ namespace ES_Backend.Data
                             CustomerId = Convert.ToInt32(reader["CustomerId"]),
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
-                            MobileNo = Convert.ToInt32(reader["MobileNo"]),
+                            MobileNo = reader["MobileNo"].ToString(),
                             Email = reader["Email"].ToString(),
                             Address = reader["Address"].ToString(),
-                            UserId = Convert.ToInt32("UserId"),
-                            CreatedDate = Convert.ToDateTime("CreatedDate"),
-                            UpdatedDate = Convert.ToDateTime("UpdatedDate")
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
                         };
                     }
                 }

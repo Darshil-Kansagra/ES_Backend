@@ -2,7 +2,7 @@
 {
     public class OrderModel
     {
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
         public int Price { get; set; }
         public string ShippingAddress { get; set; }
         public string PaymentMode { get; set; }
