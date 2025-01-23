@@ -36,7 +36,6 @@ namespace ES_Backend.Data
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
                             MobileNo = reader["MobileNo"].ToString(),
-                            Email = reader["Email"].ToString(),
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
                             CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
@@ -75,7 +74,6 @@ namespace ES_Backend.Data
                             FirstName = reader["FirstName"].ToString(),
                             LastName = reader["LastName"].ToString(),
                             MobileNo = reader["MobileNo"].ToString(),
-                            Email = reader["Email"].ToString(),
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
                             CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
@@ -106,7 +104,6 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@FirstName",model.FirstName);
                     cmd.Parameters.AddWithValue("@LastName", model.LastName);
                     cmd.Parameters.AddWithValue("@MobileNo", model.MobileNo);
-                    cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Address", model.Address);
                     cmd.Parameters.AddWithValue("@UserId", model.UserId);
                     int row = cmd.ExecuteNonQuery();
@@ -136,7 +133,6 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
                     cmd.Parameters.AddWithValue("@FirstName", model.LastName);
                     cmd.Parameters.AddWithValue("@FirstName", model.MobileNo);
-                    cmd.Parameters.AddWithValue("@FirstName", model.Email);
                     cmd.Parameters.AddWithValue("@FirstName", model.Address);
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;

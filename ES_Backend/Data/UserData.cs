@@ -36,6 +36,7 @@ namespace ES_Backend.Data
                             UserId = Convert.ToInt32(reader["UserId"]),
                             UserName = reader["UserName"].ToString(),
                             Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = Convert.ToBoolean(reader["IsActive"]),
                             CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
@@ -65,6 +66,7 @@ namespace ES_Backend.Data
                     cmd.CommandText = "PR_User_Insert";
                     cmd.Parameters.AddWithValue("@UserName", user.UserName);
                     cmd.Parameters.AddWithValue("@Password", user.Password);
+                    cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@Role", user.Role);
                     cmd.Parameters.AddWithValue("@IsActive", user.IsActive);
                     int rows = cmd.ExecuteNonQuery();
@@ -93,6 +95,7 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@UserId", id);
                     cmd.Parameters.AddWithValue("@UserName", model.UserName);
                     cmd.Parameters.AddWithValue("@Password", model.Password);
+                    cmd.Parameters.AddWithValue("@Email", model.Email);
                     cmd.Parameters.AddWithValue("@Role", model.Role);
                     cmd.Parameters.AddWithValue("@IsActive", model.IsActive);
                     int rows = cmd.ExecuteNonQuery();
@@ -126,6 +129,7 @@ namespace ES_Backend.Data
                         {
                             UserName = reader["UserName"].ToString(),
                             Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = false
                         };
@@ -154,7 +158,7 @@ namespace ES_Backend.Data
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "PR_Login";
-                    cmd.Parameters.AddWithValue("@UserName",model.UserName);
+                    cmd.Parameters.AddWithValue("@NameOREmail", model.UserName);
                     cmd.Parameters.AddWithValue("@Password", model.Password);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -164,6 +168,7 @@ namespace ES_Backend.Data
                             UserId = Convert.ToInt32(reader["UserId"]),
                             UserName = reader["UserName"].ToString(),
                             Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = Convert.ToBoolean(reader["IsActive"]),
                             CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
