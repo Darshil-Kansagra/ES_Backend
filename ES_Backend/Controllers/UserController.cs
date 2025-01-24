@@ -99,7 +99,7 @@ namespace ES_Backend.Controllers
             var data = _userData.login(user);
             if (data.UserId == null)
             {
-                return Ok(new { message = "UserName or Password is incorrect" });
+                return NotFound(new { message = "UserName or Password is incorrect" });
             }
             else
             {
