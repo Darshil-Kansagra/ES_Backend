@@ -53,6 +53,44 @@ namespace ES_Backend.Data
         }
         #endregion
 
+        #region SelectAll
+        public UserModel SelectById(int id)
+        {
+            UserModel model = new UserModel();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_User_SelectById";
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        model = new UserModel
+                        {
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Role = reader["Role"].ToString(),
+                            IsActive = Convert.ToBoolean(reader["IsActive"]),
+                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            UpdatedDate = Convert.ToDateTime(reader["Updateddate"])
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return model;
+        }
+        #endregion
+
         #region Insert
         public bool Insert(UserModel user)
         {
@@ -147,7 +185,7 @@ namespace ES_Backend.Data
         #endregion
 
         #region Login
-        public UserModel login(UserModel model)
+        public UserModel login(LoginModel model)
         {
             UserModel users = new UserModel();
             try
@@ -158,7 +196,7 @@ namespace ES_Backend.Data
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "PR_Login";
-                    cmd.Parameters.AddWithValue("@NameOREmail", model.UserName);
+                    cmd.Parameters.AddWithValue("@NameOREmail", model.NameOrEmail);
                     cmd.Parameters.AddWithValue("@Password", model.Password);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())

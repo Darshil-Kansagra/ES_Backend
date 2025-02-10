@@ -39,7 +39,6 @@ namespace ES_Backend.Data
                             Discount = Convert.ToDouble(reader["Discount"]),
                             TotalAmount = Convert.ToDouble(reader["TotalAmount"]),
                             OrderId = Convert.ToInt32(reader["OrderId"]),
-                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
                             UserId = Convert.ToInt32(reader["UserId"])
                         });
                     }
@@ -68,7 +67,6 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@Discount", model.Discount);
                     cmd.Parameters.AddWithValue("@TotalAmount", model.TotalAmount);
                     cmd.Parameters.AddWithValue("@OrderId", model.OrderId);
-                    cmd.Parameters.AddWithValue("@CustomerId", model.CustomerId);
                     cmd.Parameters.AddWithValue("@UserId", model.UserId);
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;

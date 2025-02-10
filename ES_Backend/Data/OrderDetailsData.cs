@@ -38,7 +38,6 @@ namespace ES_Backend.Data
                             Quantity = Convert.ToInt32(reader["Quantity"]),
                             Amount = Convert.ToDouble(reader["Amount"]),
                             TotalAmount = Convert.ToInt32(reader["TotalAmount"]),
-                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
                             UserId = Convert.ToInt32(reader["UserId"]),
                         });
                     }
@@ -68,7 +67,6 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@Quantity", orderDetails.Quantity);
                     cmd.Parameters.AddWithValue("@Amount", orderDetails.Amount);
                     cmd.Parameters.AddWithValue("@TotalAmount", orderDetails.TotalAmount);
-                    cmd.Parameters.AddWithValue("@CustomerId", orderDetails.CustomerId);
                     cmd.Parameters.AddWithValue("@UserId", orderDetails.UserId);
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;

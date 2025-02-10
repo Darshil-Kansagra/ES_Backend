@@ -38,6 +38,7 @@ namespace ES_Backend.Data
                             MobileNo = reader["MobileNo"].ToString(),
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString(),
                             CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                             UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
                         });
@@ -90,6 +91,44 @@ namespace ES_Backend.Data
         }
         #endregion
 
+        #region SelectById
+        public CustomerModel SelectByUserId(int id)
+        {
+            CustomerModel model = new CustomerModel();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "PR_Customer_SelectByUserId";
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        model = new CustomerModel
+                        {
+                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString(),
+                            MobileNo = reader["MobileNo"].ToString(),
+                            Address = reader["Address"].ToString(),
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return model;
+        }
+        #endregion
+
         #region Insert
         public bool Insert(CustomerModel model)
         {
@@ -131,9 +170,10 @@ namespace ES_Backend.Data
                     cmd.CommandText = "PR_Customer_Update";
                     cmd.Parameters.AddWithValue("@CustomerId", id);
                     cmd.Parameters.AddWithValue("@FirstName", model.FirstName);
-                    cmd.Parameters.AddWithValue("@FirstName", model.LastName);
-                    cmd.Parameters.AddWithValue("@FirstName", model.MobileNo);
-                    cmd.Parameters.AddWithValue("@FirstName", model.Address);
+                    cmd.Parameters.AddWithValue("@LastName", model.LastName);
+                    cmd.Parameters.AddWithValue("@MobileNo", model.MobileNo);
+                    cmd.Parameters.AddWithValue("@Address", model.Address);
+                    cmd.Parameters.AddWithValue("@UserId", model.UserId);
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;
                 }
@@ -159,6 +199,7 @@ namespace ES_Backend.Data
                     cmd.CommandText = "PR_Customer_Delete";
                     cmd.Parameters.AddWithValue("@CustomerId", id);
                     int rows = cmd.ExecuteNonQuery();
+                    return rows > 0;
                 }
             }
             catch(Exception ex)

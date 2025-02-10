@@ -10,6 +10,7 @@ namespace ES_Backend.Models
         public string MobileNo { get; set; }
         public string Address { get; set; }
         public int UserId { get; set; }
+        public string? UserName { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
     }

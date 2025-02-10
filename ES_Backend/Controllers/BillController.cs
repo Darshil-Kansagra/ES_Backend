@@ -2,6 +2,7 @@
 using ES_Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ES_Backend.Controllers
 {
@@ -24,9 +25,9 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllBill()
         {
             var data = _billData.SelectAll();
-            if (data == null)
+            if (data.IsNullOrEmpty())
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found"});
             }
             else
             {
@@ -43,7 +44,7 @@ namespace ES_Backend.Controllers
             var data = _billData.Insert(model);
             if(data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -59,7 +60,7 @@ namespace ES_Backend.Controllers
             var data = _billData.Delete(id);
             if (data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {

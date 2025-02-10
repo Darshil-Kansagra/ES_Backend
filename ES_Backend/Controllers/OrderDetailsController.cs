@@ -2,6 +2,7 @@
 using ES_Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ES_Backend.Controllers
 {
@@ -23,9 +24,9 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllOrderDetails()
         {
             var data = _orderDetailsData.SelectAll();
-            if (data == null)
+            if (data.IsNullOrEmpty())
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -42,7 +43,7 @@ namespace ES_Backend.Controllers
             var data = _orderDetailsData.Insert(model);
             if (data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -58,7 +59,7 @@ namespace ES_Backend.Controllers
             var data = _orderDetailsData.Delete(id);
             if (data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {

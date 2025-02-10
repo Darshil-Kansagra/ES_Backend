@@ -8,7 +8,6 @@
         public int Quantity { get; set; }
         public double Amount { get; set; }
         public double TotalAmount { get; set; }
-        public int CustomerId { get; set; }
         public int UserId { get; set; }
     }
 }

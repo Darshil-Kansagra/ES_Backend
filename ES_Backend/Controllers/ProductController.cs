@@ -1,34 +1,30 @@
 ﻿using ES_Backend.Data;
+using ES_Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using ES_Backend.Models;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ES_Backend.Controllers
 {
     [Route("ES/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly UserData _userData;
+        private ProductData _productdata;
 
         #region configuration
-        public UserController(IConfiguration configuration)
+        public ProductController(IConfiguration configuration)
         {
-            _userData = new UserData(configuration);
+            _productdata = new ProductData(configuration);
         }
         #endregion
 
-        #region GetAllUser
-
+        #region GetAllProduct
         [HttpGet]
-        [Route("GetAllUser")]
-        public IActionResult GetAllUser()
+        [Route("GetAllProduct")]
+        public IActionResult GetAllProduct()
         {
-            var data = _userData.SelectAll();
+            var data = _productdata.SelectAll();
             if (data.IsNullOrEmpty())
             {
                 return NotFound(new { message = "Not Found" });
@@ -40,13 +36,12 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region GetAllUser
-
+        #region GetById
         [HttpGet("GetById/{id}")]
-        public IActionResult getByid(int id)
+        public IActionResult GetById(int id)
         {
-            var data = _userData.SelectById(id);
-            if (data.UserId == null)
+            var data = _productdata.SelectById(id);
+            if (data.ProductId == null)
             {
                 return NotFound(new { message = "Not Found" });
             }
@@ -57,14 +52,13 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region PostUser
-
+        #region PostProduct
         [HttpPost]
-        [Route("PostUser")]
-        public IActionResult PostUser([FromBody] UserModel user)
+        [Route("PostProduct")]
+        public IActionResult PostProduct([FromBody] ProductModel model)
         {
-            var data = _userData.Insert(user);
-            if(data == false)
+            var data = _productdata.Insert(model);
+            if (data == false)
             {
                 return NotFound(new { message = "Not Found" });
             }
@@ -75,13 +69,12 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region PutUser
-
-        [HttpPut("UpdateUser/{id}")]
-        public IActionResult PutUser([FromBody]UserModel user,int id)
+        #region PutProduct
+        [HttpPut("PutProduct/{id}")]
+        public IActionResult PutProduct([FromBody] ProductModel model, int id)
         {
-            var data = _userData.Update(user,id);
-            if(data == false)
+            var data = _productdata.Update(model, id);
+            if (data == false)
             {
                 return NotFound(new { message = "Not Found" });
             }
@@ -92,13 +85,12 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region SoftDelete
-
-        [HttpDelete("SoftDelete/{id}")]
-        public IActionResult SoftDelete(int id)
+        #region DeleteProduct
+        [HttpDelete("DeleteProduct/{id}")]
+        public IActionResult DeleteProduct(int id)
         {
-            var data = _userData.SoftDelete(id);
-            if(data == false)
+            var data = _productdata.Delete(id);
+            if (data == false)
             {
                 return NotFound(new { message = "Not Found" });
             }
@@ -109,15 +101,15 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region Login
+        #region SearchProduct
         [HttpPost]
-        [Route("Login")]
-        public IActionResult login([FromBody] LoginModel user)
+        [Route("SearchProduct")]
+        public IActionResult Search([FromBody] SearchModel model)
         {
-            var data = _userData.login(user);
-            if (data.UserId == null)
+            var data = _productdata.SearchProduct(model);
+            if (data == null)
             {
-                return NotFound(new { message = "UserName or Password is incorrect" });
+                return NotFound(new { message = "Not Found" });
             }
             else
             {

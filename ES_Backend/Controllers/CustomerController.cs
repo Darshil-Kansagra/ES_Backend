@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ES_Backend.Data;
 using ES_Backend.Models;
+using Microsoft.IdentityModel.Tokens;
 namespace ES_Backend.Controllers
 {
     [Route("ES/[controller]")]
@@ -23,9 +24,9 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllCustomer()
         {
             var data = _customerData.SelectAll();
-            if(data == null)
+            if(data.IsNullOrEmpty())
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -41,7 +42,23 @@ namespace ES_Backend.Controllers
             var data = _customerData.SelectById(id);
             if (data.CustomerId == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
+            }
+            else
+            {
+                return Ok(data);
+            }
+        }
+        #endregion
+
+        #region GetByUserId
+        [HttpGet("GetByUserId/{id}")]
+        public IActionResult GetByUserId(int id)
+        {
+            var data = _customerData.SelectByUserId(id);
+            if (data.CustomerId == null)
+            {
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -58,7 +75,7 @@ namespace ES_Backend.Controllers
             var data = _customerData.Insert(model);
             if (data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -74,7 +91,7 @@ namespace ES_Backend.Controllers
             var data = _customerData.Update(model, id);
             if (data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {
@@ -90,7 +107,7 @@ namespace ES_Backend.Controllers
             var data = _customerData.Delete(id);
             if(data == false)
             {
-                return NotFound();
+                return NotFound(new { message = "Not Found" });
             }
             else
             {

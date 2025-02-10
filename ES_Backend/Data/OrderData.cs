@@ -37,7 +37,6 @@ namespace ES_Backend.Data
                             ShippingAddress = reader["ShippingAddress"].ToString(),
                             PaymentMode = reader["OrderId"].ToString(),
                             OrderDate = Convert.ToDateTime(reader["OrderDate"]),
-                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
                             UserId = Convert.ToInt32(reader["UserId"])
                         });
                     }
@@ -66,7 +65,6 @@ namespace ES_Backend.Data
                     cmd.Parameters.AddWithValue("@ShippingAddress", order.ShippingAddress);
                     cmd.Parameters.AddWithValue("@PaymentMode", order.PaymentMode);
                     cmd.Parameters.AddWithValue("@OrderDate", order.OrderDate);
-                    cmd.Parameters.AddWithValue("@CustomerId", order.CustomerId);
                     cmd.Parameters.AddWithValue("@UserId", order.UserId);
                     int rows = cmd.ExecuteNonQuery();
                     return rows > 0;
