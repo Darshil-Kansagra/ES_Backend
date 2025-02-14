@@ -40,7 +40,7 @@ namespace ES_Backend.Controllers
         }
         #endregion
 
-        #region GetAllUser
+        #region GetUserId
 
         [HttpGet("GetById/{id}")]
         public IActionResult getByid(int id)

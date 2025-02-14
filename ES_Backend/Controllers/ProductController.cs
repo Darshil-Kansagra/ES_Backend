@@ -107,7 +107,7 @@ namespace ES_Backend.Controllers
         public IActionResult Search([FromBody] SearchModel model)
         {
             var data = _productdata.SearchProduct(model);
-            if (data == null)
+            if (data.IsNullOrEmpty())
             {
                 return NotFound(new { message = "Not Found" });
             }
