@@ -25,7 +25,23 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllOrder()
         {
             var data = _orderData.SelectAll();
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
+            {
+                return NotFound(new { message = "Not Found" });
+            }
+            else
+            {
+                return Ok(data);
+            }
+        }
+        #endregion
+
+        #region GetOrderByUserId
+        [HttpGet("GetByUserId/{id}")]
+        public IActionResult GetOrderByUserId(int id)
+        {
+            var data = _orderData.SelectByUserId(id);
+            if (!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
             }

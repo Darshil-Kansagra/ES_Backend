@@ -6,6 +6,7 @@ using ES_Backend.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ES_Backend.Controllers
 {
@@ -29,7 +30,7 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllUser()
         {
             var data = _userData.SelectAll();
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
             }

@@ -24,7 +24,7 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllCustomer()
         {
             var data = _customerData.SelectAll();
-            if(data.IsNullOrEmpty())
+            if(!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
             }

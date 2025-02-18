@@ -39,8 +39,8 @@ namespace ES_Backend.Data
                             Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = Convert.ToBoolean(reader["IsActive"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["Updateddate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         });
                     }
                 }
@@ -53,7 +53,7 @@ namespace ES_Backend.Data
         }
         #endregion
 
-        #region SelectAll
+        #region SelectbyId
         public UserModel SelectById(int id)
         {
             UserModel model = new UserModel();
@@ -77,8 +77,8 @@ namespace ES_Backend.Data
                             Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = Convert.ToBoolean(reader["IsActive"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["Updateddate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         };
                     }
                 }
@@ -209,8 +209,8 @@ namespace ES_Backend.Data
                             Email = reader["Email"].ToString(),
                             Role = reader["Role"].ToString(),
                             IsActive = Convert.ToBoolean(reader["IsActive"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         };
                         return users;
                     }

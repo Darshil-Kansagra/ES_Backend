@@ -39,7 +39,7 @@ namespace ES_Backend.Data
                             ProductType = reader["ProductType"].ToString(),
                             ImageUrl = reader["ImageUrl"].ToString(),
                             StockQuantity = Convert.ToInt32(reader["StockQuantity"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
                             UpdatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                         });
                     }
@@ -78,7 +78,7 @@ namespace ES_Backend.Data
                             ProductType = reader["ProductType"].ToString(),
                             ImageUrl = reader["ImageUrl"].ToString(),
                             StockQuantity = Convert.ToInt32(reader["StockQuantity"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
                             UpdatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                         };
                     }
@@ -201,7 +201,7 @@ namespace ES_Backend.Data
                             ProductType = reader["ProductType"].ToString(),
                             ImageUrl = reader["ImageUrl"].ToString(),
                             StockQuantity = Convert.ToInt32(reader["StockQuantity"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
                             UpdatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                         });
                     }

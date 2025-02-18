@@ -3,8 +3,8 @@
     public class BillModel
     {
         public int? BillId { get; set; }
-        public int BillNumber { get; set; }
-        public DateTime BillDate { get; set; }
+        public int? BillNumber { get; set; }
+        public DateTime? BillDate { get; set; }
         public double Amount { get; set; }
         public double Discount { get; set; }
         public double TotalAmount { get; set; }

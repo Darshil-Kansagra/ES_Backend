@@ -43,7 +43,7 @@ namespace ES_Backend.Data
                             RefreshRate = Convert.ToInt32(reader["RefreshRate"]),
                             SoundTechnology = reader["SoundTechnology"].ToString(),
                             BrochureUrl = reader["BrochureUrl"].ToString(),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
                             UpdatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                         };
                     }
@@ -86,7 +86,7 @@ namespace ES_Backend.Data
                             Warranty = Convert.ToInt32(reader["Warranty"]),
                             StarRating = Convert.ToInt32(reader["StarRating"]),
                             BrochureUrl = reader["BrochureUrl"].ToString(),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
                             UpdatedDate = Convert.ToDateTime(reader["CreatedDate"]),
                         };
                     }

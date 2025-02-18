@@ -25,7 +25,7 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllBill()
         {
             var data = _billData.SelectAll();
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
             {
                 return NotFound(new { message = "Not Found"});
             }

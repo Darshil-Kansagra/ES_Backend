@@ -25,7 +25,7 @@ namespace ES_Backend.Controllers
         public IActionResult GetAllProduct()
         {
             var data = _productdata.SelectAll();
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
             }
@@ -107,7 +107,7 @@ namespace ES_Backend.Controllers
         public IActionResult Search([FromBody] SearchModel model)
         {
             var data = _productdata.SearchProduct(model);
-            if (data.IsNullOrEmpty())
+            if (!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
             }

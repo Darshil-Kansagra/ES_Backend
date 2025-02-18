@@ -39,8 +39,8 @@ namespace ES_Backend.Data
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
                             UserName = reader["UserName"].ToString(),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         });
                     }
                 }
@@ -77,8 +77,8 @@ namespace ES_Backend.Data
                             MobileNo = reader["MobileNo"].ToString(),
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         };
                     }
                 }
@@ -91,7 +91,7 @@ namespace ES_Backend.Data
         }
         #endregion
 
-        #region SelectById
+        #region SelectByUserId
         public CustomerModel SelectByUserId(int id)
         {
             CustomerModel model = new CustomerModel();
@@ -115,8 +115,8 @@ namespace ES_Backend.Data
                             MobileNo = reader["MobileNo"].ToString(),
                             Address = reader["Address"].ToString(),
                             UserId = Convert.ToInt32(reader["UserId"]),
-                            CreatedDate = Convert.ToDateTime(reader["CreatedDate"]),
-                            UpdatedDate = Convert.ToDateTime(reader["UpdatedDate"])
+                            CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : (DateTime?)null,
+                            UpdatedDate = reader["Updateddate"] != DBNull.Value ? Convert.ToDateTime(reader["Updateddate"]) : (DateTime?)null
                         };
                     }
                 }
