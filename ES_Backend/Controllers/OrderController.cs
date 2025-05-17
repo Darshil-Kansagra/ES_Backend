@@ -20,7 +20,7 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region GetAllOrder
-        [HttpGet]
+        [HttpGet()]
         [Route("GetAllOrder")]
         public IActionResult GetAllOrder()
         {

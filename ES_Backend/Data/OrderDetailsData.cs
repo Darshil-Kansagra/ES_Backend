@@ -16,7 +16,7 @@ namespace ES_Backend.Data
         #endregion
 
         #region SelectAll
-        public IEnumerable<OrderDetailsModel> SelectAll()
+        public IEnumerable<OrderDetailsModel> SelectAll(int id)
         {
             List<OrderDetailsModel> orderDetails = new List<OrderDetailsModel>();
             try
@@ -27,18 +27,21 @@ namespace ES_Backend.Data
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "PR_OrderDetails_SelectAll";
+                    cmd.Parameters.AddWithValue("@OrderId", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         orderDetails.Add(new OrderDetailsModel
                         {
-                            OrderDetailId = Convert.ToInt32(reader["OrderDetailsId"]),
+                            OrderDetailId = Convert.ToInt32(reader["OrderDetailId"]),
                             ProductId = Convert.ToInt32(reader["ProductId"]),
+                            ProductName = reader["ProductName"].ToString(),
                             OrderId = Convert.ToInt32(reader["OrderId"]),
                             Quantity = Convert.ToInt32(reader["Quantity"]),
                             Amount = Convert.ToDouble(reader["Amount"]),
                             TotalAmount = Convert.ToInt32(reader["TotalAmount"]),
                             UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString(),
                         });
                     }
                 }

@@ -16,7 +16,7 @@ namespace ES_Backend.Data
         #endregion
 
         #region SelectAll
-        public IEnumerable<BillModel> SelectAll()
+        public IEnumerable<BillModel> SelectAll(int id)
         {
             List<BillModel> bills = new List<BillModel>();
             try
@@ -27,6 +27,7 @@ namespace ES_Backend.Data
                     SqlCommand cmd = con.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "PR_Bill_SelectAll";
+                    cmd.Parameters.AddWithValue("@OrderId", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -39,7 +40,8 @@ namespace ES_Backend.Data
                             Discount = Convert.ToDouble(reader["Discount"]),
                             TotalAmount = Convert.ToDouble(reader["TotalAmount"]),
                             OrderId = Convert.ToInt32(reader["OrderId"]),
-                            UserId = Convert.ToInt32(reader["UserId"])
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString()
                         });
                     }
                 }

@@ -35,7 +35,7 @@ namespace ES_Backend.Data
                             OrderId = Convert.ToInt32(reader["OrderId"]),
                             Price = Convert.ToInt32(reader["Price"]),
                             ShippingAddress = reader["ShippingAddress"].ToString(),
-                            PaymentMode = reader["OrderId"].ToString(),
+                            PaymentMode = reader["PaymentMode"].ToString(),
                             OrderDate = Convert.ToDateTime(reader["OrderDate"]),
                             UserId = Convert.ToInt32(reader["UserId"]),
                             UserName = reader["UserName"].ToString()
@@ -72,9 +72,10 @@ namespace ES_Backend.Data
                             OrderId = Convert.ToInt32(reader["OrderId"]),
                             Price = Convert.ToInt32(reader["Price"]),
                             ShippingAddress = reader["ShippingAddress"].ToString(),
-                            PaymentMode = reader["OrderId"].ToString(),
+                            PaymentMode = reader["PaymentMode"].ToString(),
                             OrderDate = Convert.ToDateTime(reader["OrderDate"]),
-                            UserId = Convert.ToInt32(reader["UserId"])
+                            UserId = Convert.ToInt32(reader["UserId"]),
+                            UserName = reader["UserName"].ToString()
                         });
                     }
                 }

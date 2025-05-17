@@ -20,11 +20,10 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region GetAllBill
-        [HttpGet]
-        [Route("GetAllBill")]
-        public IActionResult GetAllBill()
+        [HttpGet("GetAllBill/{id}")]
+        public IActionResult GetAllBill(int id)
         {
-            var data = _billData.SelectAll();
+            var data = _billData.SelectAll(id);
             if (!data.Any())
             {
                 return NotFound(new { message = "Not Found"});

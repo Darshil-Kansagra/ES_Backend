@@ -19,11 +19,10 @@ namespace ES_Backend.Controllers
         #endregion
 
         #region GetAllOrderDetails
-        [HttpGet]
-        [Route("GetAllOrderDetails")]
-        public IActionResult GetAllOrderDetails()
+        [HttpGet("GetAllOrderDetails/{id}")]
+        public IActionResult GetAllOrderDetails(int id)
         {
-            var data = _orderDetailsData.SelectAll();
+            var data = _orderDetailsData.SelectAll(id);
             if (!data.Any())
             {
                 return NotFound(new { message = "Not Found" });
